@@ -32,7 +32,6 @@ int search(vector<int> inputs, int target, int from, int to)
     }
 
     int mid = (from + to) / 2;
-    cout << "From = " << from << ", To = " << to << ", Mid" << mid << endl;
     if (inputs[mid] == target)
     {
         return mid;
