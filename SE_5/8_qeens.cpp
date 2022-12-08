@@ -3,22 +3,22 @@
 
 using namespace std;
 
-const int NUMBWER_OR_ROWS = 8;
-const int NUMBWER_OR_COLS = 8;
+const int NUMBWER_OF_ROWS = 8;
+const int NUMBWER_OF_COLS = 8;
 
-int col_of_queen_in_rows[NUMBWER_OR_ROWS];
+int col_of_queen_in_rows[NUMBWER_OF_ROWS];
 
 void reset_board()
 {
-    for (int row = 0; row < NUMBWER_OR_ROWS; row++)
+    for (int row = 0; row < NUMBWER_OF_ROWS; row++)
         col_of_queen_in_rows[row] = -1;
 }
 
 void print_board()
 {
-    for (int row = 0; row < NUMBWER_OR_ROWS; row++)
+    for (int row = 0; row < NUMBWER_OF_ROWS; row++)
     {
-        for (int col = 0; col < NUMBWER_OR_COLS; col++)
+        for (int col = 0; col < NUMBWER_OF_COLS; col++)
             cout << (col == col_of_queen_in_rows[row] ? "Q" : ".");
         cout << endl;
     }
@@ -51,10 +51,10 @@ bool can_put_at(int row, int col)
 
 bool solve(int row)
 {
-    if (row == NUMBWER_OR_ROWS)
+    if (row == NUMBWER_OF_ROWS)
         return true;
 
-    for (int col = 0; col < NUMBWER_OR_COLS; col++)
+    for (int col = 0; col < NUMBWER_OF_COLS; col++)
     {
         if (can_put_at(row, col))
         {
