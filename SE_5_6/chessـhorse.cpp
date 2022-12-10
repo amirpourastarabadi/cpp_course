@@ -66,10 +66,10 @@ point set_start_point()
     struct point start_point;
     // cout << "Enter start x: ";
     // cin >> start_point.x;
-    start_point.x = 5;
+    start_point.x = 6;
     // cout << "Enter start y: ";
     // cin >> start_point.y;
-    start_point.y = 5;
+    start_point.y = 6;
     return start_point;
 }
 
