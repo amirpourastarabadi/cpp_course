@@ -36,6 +36,8 @@ public:
         this->v_x = v_x;
         this->v_y = v_y;
     }
+    int get_vx() { return this->v_x; };
+    int get_vy() { return this->v_y; };
     string to_string()
     {
         return '(' + std::to_string(this->v_x) + ", " + std::to_string(this->v_y) + ')';
@@ -63,6 +65,25 @@ public:
         this->height = height;
     }
 
+    void set_new_pos(Point *position, Velocity v, int delta_t)
+    {
+        for (int i = 0; i < delta_t; i++)
+        {
+            if (this->check_in_table(position->get_x() + v.get_vx(), position->get_y() + v.get_vy()))
+            {
+                position->set_pos(position->get_x() + v.get_vx(), position->get_y() + v.get_vy());
+                continue;
+            }
+
+            // todo: handle if point touch the edges
+        }
+    }
+
+    bool check_in_table(int x, int y)
+    {
+        return x <= this->width && y <= this->height;
+    }
+
     string to_string()
     {
         return std::to_string(this->height) + " * " + std::to_string(this->width);
@@ -82,6 +103,10 @@ public:
         this->velocity = velocity;
         this->table = table;
     };
+    void hit(Velocity v, int delta_t)
+    {
+        table->set_new_pos(&(this->position), v, delta_t);
+    }
     string to_string()
     {
         return "position = " + this->position.to_sting() +
@@ -98,7 +123,6 @@ int main()
 {
     Table t = Table();
     Ball b = Ball(Point(10, 10), Velocity(0, 0), &t);
-    cout << b.to_string() << endl;
 
     return 0;
 }
