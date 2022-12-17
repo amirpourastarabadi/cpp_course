@@ -23,6 +23,7 @@ public:
     {
         real += c.real;
         imag += c.real;
+        return *this;
     }
     void print()
     {
