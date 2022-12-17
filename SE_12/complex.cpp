@@ -27,7 +27,7 @@ public:
     }
     void print()
     {
-        cout << "(" << to_string(real) << ", " << ((imag > 0) ? "+" : "") << to_string(imag) << ")" << endl;
+        cout << "(" << to_string(real) << ", " << ((imag > 0) ? "+" : "") << to_string(imag) << "i)" << endl;
     }
 };
 
