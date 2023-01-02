@@ -31,7 +31,7 @@ public:
     LinkedList();
     void append(int data);
     void pop();
-    // void insert(int index, Node *node);
+    void insert(int index, int value);
     // void remove(int index);
     void print();
     int get_size() { return this->size; };
@@ -81,6 +81,28 @@ void LinkedList::print()
     cout << endl;
 }
 
+void LinkedList::insert(int index, int value)
+{
+    if(index >= size)
+    {
+        cout << "List contains only " << size << " elemets\n";
+        return;
+    }
+
+    Node *targetNode = head;
+    for(int i = 0 ; i < index; i++)
+    {
+        targetNode = targetNode->get_next();
+    }
+
+    Node *new_node = new Node(value);
+    targetNode->get_next()->set_prev(new_node);
+    new_node->set_next(targetNode->get_next());
+    new_node->set_prev(targetNode);
+    targetNode->set_next(new_node);
+    size += 1;
+}
+
 main()
 {
     LinkedList l;
@@ -108,6 +130,15 @@ main()
     {
         l.pop();
     }
+    l.print();
+
+    cout << "insert 44 at index 0:\n";
+    l.insert(0, 44);
+    l.print();
+
+
+    cout << "insert 66 at index 3:\n";
+    l.insert(3, 66);
     l.print();
 
     return 0;
