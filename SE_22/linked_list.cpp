@@ -32,9 +32,10 @@ public:
     void append(int data);
     void pop();
     void insert(int index, int value);
-    // void remove(int index);
+    void remove(int index);
     void print();
     int get_size() { return this->size; };
+    Node *get_head() { return this->head; };
 
 private:
     Node *head;
@@ -83,14 +84,14 @@ void LinkedList::print()
 
 void LinkedList::insert(int index, int value)
 {
-    if(index >= size)
+    if (index >= size)
     {
         cout << "List contains only " << size << " elemets\n";
         return;
     }
 
     Node *targetNode = head;
-    for(int i = 0 ; i < index; i++)
+    for (int i = 0; i < index; i++)
     {
         targetNode = targetNode->get_next();
     }
@@ -103,43 +104,98 @@ void LinkedList::insert(int index, int value)
     size += 1;
 }
 
+void LinkedList::remove(int index)
+{
+    if (index >= size)
+    {
+        cout << "List contains only " << size << " elemets\n";
+        return;
+    }
+
+    Node *targetNode = head;
+    for (int i = 0; i <= index; i++)
+    {
+        targetNode = targetNode->get_next();
+    }
+
+    targetNode->get_prev()->set_next(targetNode->get_next());
+    targetNode->get_next()->set_prev(targetNode->get_prev());
+    size -= 1;
+}
+
+ostream &operator<<(ostream &out, LinkedList l)
+{
+    if (l.get_size() == 0)
+    {
+        cout << "Empty list\n";
+        return out;
+    }
+    Node *current = l.get_head()->get_next();
+    for (int i = 0; i < l.get_size(); i++)
+    {
+        cout << current->get_data() << ' ';
+        current = current->get_next();
+    }
+    cout << endl;
+    return out;
+}
+
 main()
 {
     LinkedList l;
-    l.print();
+    cout << l;
 
     cout << "append some items:\n";
     for (int i = 1; i <= 1024; i *= 2)
         l.append(i);
-    l.print();
+    cout << l;
 
     cout << "pop 3 items:\n";
     for (int i = 0; i < 3; i++)
     {
         l.pop();
     }
-    l.print();
+    cout << l;
 
     for (int i = 1; i <= 1024; i *= 2)
         l.append(i);
     cout << "append more items:\n";
-    l.print();
-    
+    cout << l;
+
     cout << "pop 3 more items:\n";
     for (int i = 0; i < 3; i++)
     {
         l.pop();
     }
-    l.print();
+    cout << l;
 
     cout << "insert 44 at index 0:\n";
     l.insert(0, 44);
-    l.print();
-
+    cout << l;
 
     cout << "insert 66 at index 3:\n";
     l.insert(3, 66);
-    l.print();
+    cout << l;
+
+    cout << "remove index 0:\n";
+    l.remove(0);
+    cout << l;
+
+    cout << "remove index 0:\n";
+    l.remove(0);
+    cout << l;
+
+    cout << "remove index 3:\n";
+    l.remove(3);
+    cout << l;
+
+    cout << "remove index " << (l.get_size() - 1) << ":\n";
+    l.remove(l.get_size() - 1);
+    cout << l;
+
+    cout << "remove index " << (l.get_size() - 1) << ":\n";
+    l.remove(l.get_size() - 1);
+    cout << l;
 
     return 0;
 }
