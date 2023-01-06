@@ -25,6 +25,7 @@ ostream &operator<<(ostream &out, Node<T> node)
 }
 
 int main()
+
 {
 
     Node<int> i(10);
