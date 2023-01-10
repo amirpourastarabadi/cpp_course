@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <map>
 
 using namespace std;
 
@@ -12,7 +13,7 @@ public:
     string name;
     int number;
 };
-typedef void (*sort_student)(vector<Student>);
+typedef void (*sort_student)(vector<Student> &students);
 
 void sort_by_name(vector<Student> &students)
 {
@@ -46,11 +47,16 @@ void sort_by_number(vector<Student> &students)
     }
 }
 
+void sort_students(vector<Student> students, sort_student fn)
+{
+    fn(students);
+}
+
 int main()
 {
     vector<Student> s;
     s.push_back(Student("Kaveh", 12));
-    s.push_back(Student("Ferdos", 11));
+    s.push_back(Student("Ferdos", 14));
     s.push_back(Student("Amir", 10));
 
     cout << "main order: \n";
@@ -60,20 +66,20 @@ int main()
     }
     cout << endl;
 
-    cout << "sort by name order: \n";
-    sort_by_name(s);
+    map<char, sort_student> func_map;
+    func_map['1'] = sort_by_name;
+    func_map['2'] = sort_by_number;
+
+    char inp;
+    cout << "select sort function:(1 or 2)\n\t1- sort by name\n\t2- sort by number\n";
+    cin >> inp;
+
+    func_map[inp](s);
     for (int i = 0; i < s.size(); i++)
     {
         cout << s[i].name << " -> " << s[i].number << endl;
     }
     cout << endl;
 
-    cout << "sort by number: \n";
-    sort_by_name(s);
-    for (int i = 0; i < s.size(); i++)
-    {
-        cout << s[i].name << " -> " << s[i].number << endl;
-    }
-    cout << endl;
     return 0;
 }
